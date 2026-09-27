@@ -5,11 +5,7 @@
     "api/v1/keepers/[action].ts": { "maxDuration": 60 }
   },
   "redirects": [
-    {
-      "source": "/app/admin/:path*",
-      "destination": "/admin/:path*",
-      "permanent": true
-    }
+    { "source": "/admin", "destination": "/app/admin", "permanent": false }
   ],
   "rewrites": [
     { "source": "/app/:path*", "destination": "/app/index.html" },

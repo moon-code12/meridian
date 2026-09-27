@@ -1,3 +1,4 @@
+import { NotFound } from "./pages/NotFound";
 import { useCallback, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { VaultPanel } from "./components/dashboard/VaultPanel";
@@ -21,16 +22,18 @@ const queryClient = new QueryClient();
 // applied before the SPA loads.
 function isAdminRoute(): boolean {
   const pathname = window.location.pathname;
-  return (
-    pathname === "/admin" ||
-    pathname.startsWith("/admin/") ||
-    pathname === "/app/admin" ||
-    pathname.startsWith("/app/admin/")
-  );
+  return pathname === "/app/admin" || pathname === "/app/admin/";
 }
 
 function isStatusRoute(): boolean {
-  return window.location.pathname.startsWith("/app/status");
+  const pathname = window.location.pathname;
+  return pathname === "/app/status" || pathname === "/app/status/";
+}
+
+function isAppRoute(): boolean {
+  return (
+    window.location.pathname === "/app" || window.location.pathname === "/app/"
+  );
 }
 
 function Dashboard() {
@@ -113,8 +116,10 @@ export default function App() {
     <AdminLogin />
   ) : isStatusRoute() ? (
     <StatusPage />
-  ) : (
+  ) : isAppRoute() ? (
     <Dashboard />
+  ) : (
+    <NotFound />
   );
 
   return (
